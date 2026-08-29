@@ -27,7 +27,9 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 ENV/
+coverage/
 env.bak/
 venv.bak/
 

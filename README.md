@@ -261,11 +261,27 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```
 *(Note: DSA Quest works 100% offline out-of-the-box even without an API key!)*
 
-### 4. Run Frontend
-```bash
+### 4. Run Locally on Windows CMD
+
+#### Option A: One-Command Startup (Recommended)
+```cmd
+scripts\start-dev.bat
+```
+
+#### Option B: Two Terminals
+
+**Terminal 1 (Backend API):**
+```cmd
+cd backend
+python main.py
+```
+*Backend runs on: `http://localhost:8000`*
+
+**Terminal 2 (Frontend Web App):**
+```cmd
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+*Frontend runs on: `http://localhost:3000`*
 
 ### 5. Safe Auto-Publish Command
 To validate tests, build, scan for secrets, commit, and push in one command:
