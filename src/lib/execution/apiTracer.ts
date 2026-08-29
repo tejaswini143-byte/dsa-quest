@@ -1,37 +1,58 @@
 import { ExecutionTrace } from '@/types/execution';
 import { generateClientTrace } from './clientTracer';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-
 export async function executeAlgorithmTrace(
-  problemId: string,
+  problemIdOrCode: string,
   variant: 'optimal' | 'bruteForce' = 'optimal',
   customInput?: any,
   customPythonCode?: string
 ): Promise<ExecutionTrace> {
-  // If custom python code was passed and backend is running, try sending to FastAPI backend
-  if (customPythonCode) {
+  const codeToExecute = customPythonCode || (problemIdOrCode.includes('\n') || problemIdOrCode.includes('=') ? problemIdOrCode : undefined);
+
+  // 1. If we have actual Python source code, execute it via the real Next.js Python trace endpoint
+  if (codeToExecute) {
+    try {
+      const res = await fetch('/api/trace', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: codeToExecute,
+          input: customInput,
+        }),
+      });
+
+      if (res.ok) {
+        const trace = await res.json();
+        if (trace && trace.steps && trace.steps.length > 0) {
+          return trace;
+        }
+      }
+    } catch {
+      // Internal route fetch failed, proceed to fallback
+    }
+
+    // 2. Try external FastAPI backend if running
+    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
     try {
       const res = await fetch(`${BACKEND_URL}/api/trace`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          code: customPythonCode,
-          testInput: customInput,
-          problemType: problemId,
+          code: codeToExecute,
+          input: customInput,
         }),
       });
       if (res.ok) {
         const trace = await res.json();
-        if (trace.steps && trace.steps.length > 0) {
+        if (trace && trace.steps && trace.steps.length > 0) {
           return trace;
         }
       }
     } catch {
-      // Backend not running, gracefully fallback to client trace generator
+      // Backend not running
     }
   }
 
-  // Fallback to ultra-fast zero-latency deterministic client tracer
-  return generateClientTrace(problemId, variant, customInput);
+  // 3. Deterministic client-side generator for built-in seed problems & offline simulation
+  return generateClientTrace(codeToExecute || problemIdOrCode, variant, customInput);
 }

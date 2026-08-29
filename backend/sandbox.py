@@ -15,13 +15,13 @@ from typing import Set, Any, Optional
 FORBIDDEN_MODULES: Set[str] = {
     "os", "sys", "subprocess", "shutil", "socket", "http", "urllib",
     "requests", "posix", "nt", "_thread", "threading", "multiprocessing",
-    "importlib", "builtins", "signal", "ctypes", "pty", "commands",
+    "importlib", "signal", "ctypes", "pty", "commands",
     "fcntl", "termios"
 }
 
 FORBIDDEN_CALLS: Set[str] = {
     "exec", "eval", "compile", "open", "input", "globals", "locals",
-    "getattr", "setattr", "delattr", "__import__", "memoryview"
+    "getattr", "setattr", "delattr", "memoryview"
 }
 
 class SecurityError(Exception):
@@ -80,12 +80,21 @@ class TreeNode:
     def __repr__(self):
         return f"TreeNode({self.val})"
 
+def safe_import(name, globals=None, locals=None, fromlist=(), level=0):
+    base_mod = name.split('.')[0]
+    if base_mod in FORBIDDEN_MODULES:
+        raise SecurityError(f"Import of {base_mod} is not allowed.")
+    return builtins.__import__(name, globals, locals, fromlist, level)
+
 def get_safe_globals() -> dict:
     """Returns restricted global namespace with standard data structure utilities."""
     safe_builtins = {
         k: v for k, v in builtins.__dict__.items()
-        if k not in FORBIDDEN_CALLS and not k.startswith("__")
+        if k not in FORBIDDEN_CALLS
     }
+    # Provide safe custom import hook
+    safe_builtins["__import__"] = safe_import
+
     return {
         "__builtins__": safe_builtins,
         "math": math,
