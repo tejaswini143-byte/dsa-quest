@@ -1,21 +1,27 @@
 """
 DSA Quest Security Sandbox
-Ensures Python code executed by learners is secure and non-destructive.
+Ensures Python code executed by learners is secure, isolated, and safe.
+Provides standard LeetCode data structure definitions (ListNode, TreeNode).
 """
 
 import ast
 import builtins
-from typing import Set
+import collections
+import heapq
+import bisect
+import math
+from typing import Set, Any, Optional
 
 FORBIDDEN_MODULES: Set[str] = {
     "os", "sys", "subprocess", "shutil", "socket", "http", "urllib",
     "requests", "posix", "nt", "_thread", "threading", "multiprocessing",
-    "importlib", "builtins", "signal", "ctypes"
+    "importlib", "builtins", "signal", "ctypes", "pty", "commands",
+    "fcntl", "termios"
 }
 
 FORBIDDEN_CALLS: Set[str] = {
     "exec", "eval", "compile", "open", "input", "globals", "locals",
-    "getattr", "setattr", "delattr", "__import__"
+    "getattr", "setattr", "delattr", "__import__", "memoryview"
 }
 
 class SecurityError(Exception):
@@ -56,14 +62,30 @@ def validate_code_safety(code: str) -> None:
     if validator.errors:
         raise SecurityError("; ".join(validator.errors))
 
+# Standard DSA Helper Classes
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+    def __repr__(self):
+        return f"ListNode({self.val})"
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+    def __repr__(self):
+        return f"TreeNode({self.val})"
+
 def get_safe_globals() -> dict:
-    """Returns restricted global namespace for safe execution."""
+    """Returns restricted global namespace with standard data structure utilities."""
     safe_builtins = {
         k: v for k, v in builtins.__dict__.items()
         if k not in FORBIDDEN_CALLS and not k.startswith("__")
     }
-    # Provide standard safe data structure helpers
-    import math, collections, heapq, bisect
     return {
         "__builtins__": safe_builtins,
         "math": math,
@@ -73,9 +95,12 @@ def get_safe_globals() -> dict:
         "deque": collections.deque,
         "defaultdict": collections.defaultdict,
         "Counter": collections.Counter,
+        "ListNode": ListNode,
+        "TreeNode": TreeNode,
         "List": list,
         "Dict": dict,
         "Set": set,
         "Tuple": tuple,
-        "Optional": None,
+        "Optional": Optional,
+        "Any": Any,
     }

@@ -73,7 +73,7 @@ export interface VisualizationConfig {
   primaryType: VisualizationType;
   secondaryTypes?: VisualizationType[];
   defaultInput: any;
-  inputSchema: {
+  inputSchema?: {
     fields: Array<{
       name: string;
       label: string;

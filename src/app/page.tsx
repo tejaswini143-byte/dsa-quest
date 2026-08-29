@@ -33,6 +33,14 @@ export default function HomePage() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Link
+              href="/playground"
+              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-black font-mono font-extrabold text-sm shadow-xl shadow-emerald-500/20 flex items-center gap-2 transform hover:-translate-y-0.5 transition-all"
+            >
+              <span>Launch Python Playground</span>
+              <span>🐍 →</span>
+            </Link>
+
+            <Link
               href="/problem/two-sum"
               className="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-500 hover:to-purple-500 text-white font-mono font-bold text-sm shadow-xl shadow-indigo-600/30 flex items-center gap-2 transform hover:-translate-y-0.5 transition-all"
             >

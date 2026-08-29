@@ -5,6 +5,9 @@ import { numberOfIslandsProblem } from './definitions/number-of-islands';
 import { climbingStairsProblem } from './definitions/climbing-stairs';
 import { validParenthesesProblem } from './definitions/valid-parentheses';
 import { binarySearchProblem } from './definitions/binary-search';
+import { threeSumProblem } from './definitions/three-sum';
+import { coinChangeProblem } from './definitions/coin-change';
+import { courseScheduleProblem } from './definitions/course-schedule';
 
 // Seed problem map
 const staticProblemMap: Record<string, ProblemDefinition> = {
@@ -14,6 +17,10 @@ const staticProblemMap: Record<string, ProblemDefinition> = {
   'climbing-stairs': climbingStairsProblem,
   'valid-parentheses': validParenthesesProblem,
   'binary-search': binarySearchProblem,
+  '3sum': threeSumProblem,
+  'three-sum': threeSumProblem,
+  'coin-change': coinChangeProblem,
+  'course-schedule': courseScheduleProblem,
 };
 
 // In-memory / custom problem registry for dynamic expansion

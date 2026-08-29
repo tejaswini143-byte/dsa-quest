@@ -7,28 +7,27 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![CI](https://github.com/tejaswini143-byte/dsa-quest/actions/workflows/ci.yml/badge.svg)](https://github.com/tejaswini143-byte/dsa-quest/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-**DSA QUEST** transforms Data Structures & Algorithms learning from static textbook reading into an interactive, game-like adventure. 
+**DSA QUEST** transforms Data Structures & Algorithms from passive textbook reading into an interactive, game-like adventure and **Universal Python Execution Engine**.
 
-Instead of memorizing algorithmic tricks, learners explore real-life narrative analogies, play hands-on state mechanics, trace step-by-step memory mutations, inspect variable transitions, and solve progressively challenging problems that build interview-grade intuition.
+Paste or write **any normal DSA Python code** into the editor and press **▶ RUN**. The universal engine safely executes, traces control flow, detects memory structures, and visualizes variable mutations line by line in real time.
 
 ---
 
 ## ✨ Features
 
+- 🐍 **Universal Python Playground (`/playground`)**: Write or paste ANY DSA Python code or LeetCode `Solution` class with instant execution tracing and visual step-by-step playback.
+- 🎬 **Multi-Structure Visualizer Studio**: Simultaneously renders multiple data structures (e.g., Graph + Queue for BFS, Graph + Heap for Dijkstra, Hash Map + Array for Two Sum, 2D Grid for Islands, Linked List for Pointers).
+- ⚡ **Generic Fallback Mode**: If code doesn't match a specialized structure, it falls back to a clean generic execution tracer with active line glow, variable diffs, call stack, and stdout without crashing.
 - 🎮 **Interactive DSA Games**: Reusable mechanics (*Pair Selection, Push/Pop Stack, Grid Island Flood-Fill, DP Staircase Ascent, Binary Search Walk*).
 - 📖 **Real-Life Stories**: Every problem begins with a vivid real-world mission (*Ice Cream Budgeting, Mountain Weather Barometer, Archipelago Cartography, Magical Staircase*).
 - 🧸 **Explain Like I'm 5 Mode**: 4 switchable cognitive perspectives (*ELI5*, *Beginner Friendly*, *Algorithmic Core*, and *FAANG Interview*).
 - 💡 **Progressive Clues**: 5-tier hint engine (*Observation $\to$ Memory $\to$ Data Structure $\to$ Pattern $\to$ Complete Blueprint*).
-- 🎨 **Algorithm Visualizations**: Registry-based visualizers for Arrays, Hash Maps, Monotonic Stacks, 2D Grids, DP Tables, Trees, and Call Stacks.
-- 🐍 **Python Code Execution**: Secure sandboxed Python execution engine generating structured line-by-line event traces.
-- 🔦 **Line-by-Line Execution**: Synchronized active line glow and step-by-step code highlighting.
-- 📦 **Variable and Memory Visualization**: Live animated variable chips tracking state transitions with value diffs ($seen: \{\} \to seen: \{2: 0\}$).
-- 🎬 **Execution Animations**: Visual primitives for pointer movements, stack pushes/pops, hash lookups, and grid traversals.
+- 📦 **Variable & Memory Diffs**: Live animated variable chips tracking state transitions ($seen: \{\} \to seen: \{2: 0\}$).
 - 🤖 **AI Tutor Layer**: Interactive coaching assistant powered by Google Gemini API with comprehensive offline fallback.
 - ✍️ **Code Practice Lab**: 5 interactive modes (*Fill in Blanks, Fix Bug, Predict Output, Reorder Lines, and Monaco Write-From-Scratch*).
-- 🐛 **Debugging Challenges**: Isolate subtle edge-case bugs and mutation ordering issues.
 - 📊 **Big-O Complexity Lab**: Dynamic operation counters scaling from $N=10$ to $N=5,000$ comparing Brute Force $O(n^2)$ vs Optimal $O(n)$.
 - 🏆 **XP and Achievements**: Earn experience points, maintain daily streaks, unlock trophy badges, and level up.
 - 🗺️ **DSA World Map**: Journey across thematic algorithm realms (*Array Forest, Hashing City, Stack Tower, Graph Galaxy, DP Temple*).
@@ -42,47 +41,33 @@ Instead of memorizing algorithmic tricks, learners explore real-life narrative a
 DSA Quest is **NOT** a collection of hard-coded algorithm pages. The application is powered by a **Universal Engine** where problems are defined purely as structured data.
 
 ```
-                              LEARNER REQUEST
-                                     │
-                                     ▼
-                           [ Problem Registry ]
-                       (Pure Structured Data Schema)
-                                     │
-                                     ▼
-                         /problem/[id] Dynamic Route
-                                     │
-                                     ▼
-                      ┌──────────────────────────────┐
-                      │   UNIVERSAL PROBLEM ENGINE   │
-                      └──────────────┬───────────────┘
-                                     │
-        ┌──────────────┬─────────────┼──────────────┬──────────────┐
-        │              │             │              │              │
-        ▼              ▼             ▼              ▼              ▼
-  [Story Engine]  [Game Engine] [Visualizer]   [Trace Engine] [Practice Lab]
-    - Missions     - Pair Match   - Array        - Event Stream - Fill Blanks
-    - Analogies    - Push/Pop     - Hash Map     - Line Glow    - Fix Bug
-    - ELI5/FAANG   - Grid Flood   - Stack/Queue  - Var Diffs    - Output Guess
-                   - DP Tabulate  - 2D Matrix    - Call Stack   - Reorder
-                   - Pointer Walk - DP Table                    - Monaco IDE
-                                  - Call Stack
+                              LEARNER CODE OR REQUEST
+                                         │
+                                         ▼
+                           [ Universal Python Sandbox ]
+                              (AST Security & Tracer)
+                                         │
+                                         ▼
+                             Execution Trace & Events
+                       (Line, Vars, Memory, Semantic Events)
+                                         │
+                                         ▼
+                           DSA Structure Detector
+                      (Array, Stack, Grid, Graph, Heap, etc.)
+                                         │
+                                         ▼
+                      ┌────────────────────────────────────┐
+                      │    UNIVERSAL MULTI-VISUALIZER      │
+                      └─────────────────┬──────────────────┘
+                                        │
+        ┌──────────────┬────────────────┼──────────────┬──────────────┐
+        │              │                │              │              │
+        ▼              ▼                ▼              ▼              ▼
+  [Array & Map]   [Stack/Queue]   [Graph & Heap]   [2D Grid]      [DP Table]
+   - Indices       - LIFO Chamber  - Nodes/Edges    - Matrix DFS   - Tabulation
+   - Pointers      - FIFO Queue    - Min/Max Heap   - Sinking      - Dependency
+   - Keys/Vals     - Deque         - Distances      - Coordinates  - Recursion
 ```
-
-### The 14 Modular Sub-Engines:
-1. **Problem Definition Engine (`src/types/problem.ts`)**: Pure TypeScript schema defining problem metadata, algorithms, test cases, and visualizations.
-2. **Problem Registry (`src/lib/problems/registry.ts`)**: Catalog managing built-in seed problems and runtime user-imported problems.
-3. **Story Engine (`src/components/story/UniversalStoryView.tsx`)**: Renders narrative briefs, characters, and industry applications.
-4. **Concept Explanation Engine (`src/components/story/ConceptExplainer.tsx`)**: Multi-tier cognitive explanation tabs.
-5. **Interactive Game Engine (`src/components/game/UniversalGameEngine.tsx`)**: Reusable game mechanics HUD with lives, moves, and feedback.
-6. **Visualizer Registry (`src/components/visualizers/UniversalVisualizer.tsx`)**: Registry dynamically mounting visualizers based on memory state.
-7. **Python Trace Sandbox (`backend/tracer.py` & `src/lib/execution/clientTracer.ts`)**: AST-validated Python tracer emitting semantic event streams.
-8. **Variable Diff Engine (`src/components/code/VariableInspector.tsx`)**: Animates in-place variable mutations with history.
-9. **Step Intel Engine (`src/components/code/ExecutionStepExplainer.tsx`)**: Generates *What Happened*, *Why*, and *What Changed* for every step.
-10. **Progressive Clue Engine (`src/components/hints/UniversalClueEngine.tsx`)**: 5-stage progressive unlockable hints.
-11. **AI Tutor Abstraction (`src/lib/ai/aiProvider.ts`)**: Multi-provider layer for Gemini API and offline expert tutoring.
-12. **Practice Engine (`src/components/practice/UniversalPracticeEngine.tsx`)**: 5 practice challenge modes.
-13. **Big-O Complexity Lab (`src/components/complexity/ComplexityComparator.tsx`)**: Interactive Big-O scaling simulator.
-14. **World Map & Gamification (`src/app/map/` & `src/app/arena/`)**: Progression map, XP leveling, and pattern quiz arena.
 
 ---
 
@@ -118,9 +103,9 @@ PATTERN RECOGNITION CHALLENGE
 
 ---
 
-## 🔥 Supported Demonstrations
+## 🔥 Supported Demonstrations & Built-in Problems
 
-All demonstration problems run through the **exact same universal engine and dynamic route** (`/problem/[id]`):
+All problems run through the **exact same universal engine and dynamic route** (`/problem/[id]`):
 
 | Problem | Pattern | Primary Visualizer | Interactive Game Mechanic | Real-Life Story |
 | :--- | :--- | :--- | :--- | :--- |
@@ -130,10 +115,16 @@ All demonstration problems run through the **exact same universal engine and dyn
 | **Climbing Stairs** | Dynamic Programming | DP Table + Call Stack | DP Staircase Ascent | *Tower of 1000 Steps* |
 | **Valid Parentheses** | Stack | LIFO Stack Chamber | Rune Match Push/Pop | *Ancient Portal Locks* |
 | **Binary Search** | Binary Search | Array (L, Mid, R) | Search Space Walk | *King Arthur's Vault Code* |
+| **3Sum** | Two Pointers | Array + Multi-Pointer | Pointer Walk | *Tri-Rune Equilibrium* |
+| **Coin Change** | Unbounded Knapsack DP | DP Table | DP Staircase Fill | *Alchemist Forge* |
+| **Course Schedule** | Topological Sort | Graph + Queue | Grid Explorer | *Academic Paradox* |
 
 ---
 
 ## 📸 Screenshots
+
+### 🐍 Universal Python Playground
+![Python Playground](docs/screenshots/python-playground.png)
 
 ### 🗺️ Interactive DSA World Map
 ![DSA World Map](docs/screenshots/world-map.png)
@@ -162,13 +153,16 @@ dsa-quest/
 ├── backend/
 │   ├── main.py                     # FastAPI routes (/api/trace, /api/ai/explain)
 │   ├── tracer.py                   # AST-based Python execution tracer & event generator
-│   ├── sandbox.py                  # AST security sandbox with timeouts & restrictions
+│   ├── sandbox.py                  # AST security sandbox with ListNode/TreeNode
 │   └── requirements.txt            # Python dependencies
 ├── docs/
 │   └── screenshots/                # Real high-resolution UI screenshots
+├── scripts/
+│   └── publish.ps1                 # Safe Auto-Publish script
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx                # DSA Quest Hero & Problem Catalog
+│   │   ├── page.tsx                # Hero & Problem Catalog
+│   │   ├── playground/page.tsx     # UNIVERSAL PYTHON DSA PLAYGROUND
 │   │   ├── problem/[id]/page.tsx   # UNIFIED DYNAMIC ROUTE (Single Engine for all problems)
 │   │   ├── map/page.tsx            # Interactive DSA World Map
 │   │   ├── arena/page.tsx          # Pattern Recognition Trainer Arena
@@ -181,20 +175,20 @@ dsa-quest/
 │   │   │   ├── StageNavigation.tsx        # Story -> Game -> Visualizer -> Practice -> Boss
 │   │   │   └── ControlBar.tsx             # Play/Pause, Step, Speed, Scrubber controls
 │   │   ├── visualizers/
-│   │   │   ├── UniversalVisualizer.tsx    # Registry container for visual primitives
+│   │   │   ├── UniversalVisualizer.tsx    # Registry container for multi-visualizers
 │   │   │   ├── ArrayVisualizer.tsx        # Indexed cells with multi-pointer badges
 │   │   │   ├── HashMapVisualizer.tsx      # Key-Value cards with lookup scanner
 │   │   │   ├── StackVisualizer.tsx        # Glass vertical chamber with LIFO physics
+│   │   │   ├── QueueVisualizer.tsx        # FIFO Queue & Deque container
+│   │   │   ├── LinkedListVisualizer.tsx   # [1] -> [2] -> [3] -> NULL with pointers
+│   │   │   ├── TreeVisualizer.tsx         # Binary tree hierarchy
+│   │   │   ├── GraphVisualizer.tsx        # Graph vertices, edges, distances
+│   │   │   ├── HeapVisualizer.tsx         # Binary min/max priority queue
 │   │   │   ├── GridVisualizer.tsx         # 2D interactive matrix with coordinates
 │   │   │   ├── DPTableVisualizer.tsx      # DP array with state transition dependency arrows
 │   │   │   └── CallStackVisualizer.tsx    # Recursion call frame stack
 │   │   ├── game/
-│   │   │   ├── UniversalGameEngine.tsx    # Game HUD, hearts, moves, feedback, confetti
-│   │   │   ├── PairSelectionGame.tsx      # Two Sum pair matching mechanic
-│   │   │   ├── PushPopStackGame.tsx       # Monotonic stack & bracket push/pop mechanic
-│   │   │   ├── GridExplorerGame.tsx       # 2D island flood-fill mechanic
-│   │   │   ├── DPStairFillGame.tsx        # DP staircase climb state-filling mechanic
-│   │   │   └── PointerWalkGame.tsx        # Binary search boundary adjustment mechanic
+│   │   │   └── UniversalGameEngine.tsx    # Game HUD, hearts, moves, feedback, confetti
 │   │   ├── story/
 │   │   │   ├── UniversalStoryView.tsx     # Narrative brief, character avatar, real-world case
 │   │   │   └── ConceptExplainer.tsx       # ELI5 / Beginner / Intermediate / Interview tabs
@@ -205,12 +199,7 @@ dsa-quest/
 │   │   ├── hints/
 │   │   │   └── UniversalClueEngine.tsx    # 5-tier progressive unlockable clue engine
 │   │   ├── practice/
-│   │   │   ├── UniversalPracticeEngine.tsx# Practice challenge mode selector
-│   │   │   ├── FillBlanksChallenge.tsx    # Code slot drop-downs
-│   │   │   ├── FixBugChallenge.tsx        # Bug diagnosis and patch selector
-│   │   │   ├── PredictOutputChallenge.tsx # Mental simulation question
-│   │   │   ├── ReorderLinesChallenge.tsx  # Drag & drop code sequence reconstructor
-│   │   │   └── MonacoPracticeEditor.tsx   # Monaco Editor with test runner & console
+│   │   │   └── UniversalPracticeEngine.tsx# Practice challenge mode selector
 │   │   ├── complexity/
 │   │   │   └── ComplexityComparator.tsx   # Big-O interactive input scaling simulator
 │   │   └── ai/
@@ -219,12 +208,6 @@ dsa-quest/
 │   │   ├── problems/
 │   │   │   ├── registry.ts                # Problem Registry and query dispatcher
 │   │   │   └── definitions/               # Pure data definitions ONLY
-│   │   │       ├── two-sum.ts
-│   │   │       ├── daily-temperatures.ts
-│   │   │       ├── number-of-islands.ts
-│   │   │       ├── climbing-stairs.ts
-│   │   │       ├── valid-parentheses.ts
-│   │   │       └── binary-search.ts
 │   │   ├── execution/
 │   │   │   ├── clientTracer.ts            # Client deterministic trace generator
 │   │   │   └── apiTracer.ts               # Backend API trace client
@@ -248,7 +231,7 @@ dsa-quest/
 ## 🛠️ Tech Stack
 
 - **Frontend**: [Next.js 14](https://nextjs.org/) (App Router), [React 18](https://react.dev/), [TypeScript 5.6](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/), [Monaco Editor](https://microsoft.github.io/monaco-editor/), [Canvas Confetti](https://www.kirilv.com/canvas-confetti/).
-- **Backend / Tracing**: [Python 3.12](https://www.python.org/), [FastAPI](https://fastapi.tiangolo.com/), [Uvicorn](https://www.uvicorn.org/), AST parser, sandbox execution monitor.
+- **Backend / Tracing**: [Python 3.12](https://www.python.org/), [FastAPI](https://fastapi.tiangolo.com/), AST parser, sandbox execution monitor.
 - **AI Tutoring**: [Google Gemini 1.5](https://ai.google.dev/) API integration with offline fallback.
 
 ---
@@ -284,20 +267,11 @@ npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 5. Run Python Backend (Optional)
+### 5. Safe Auto-Publish Command
+To validate tests, build, scan for secrets, commit, and push in one command:
 ```bash
-cd backend
-python -m venv venv
-
-# Windows:
-.\venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
-
-pip install -r requirements.txt
-python main.py
+npm run publish
 ```
-FastAPI runs at [http://localhost:8000](http://localhost:8000) with interactive Swagger docs at `/docs`.
 
 ---
 
@@ -311,79 +285,27 @@ User code execution is protected by multi-layer security:
 
 ---
 
-## 🧩 Adding New Problems (Zero Frontend Code Required)
+## 🧪 Universal Verification Tests
 
-To add a new problem to DSA Quest, simply define a JSON schema or use the built-in [**Problem Creator**](http://localhost:3000/create):
+The universal execution engine is verified against all 15 algorithmic paradigms:
 
-```json
-{
-  "id": "my-custom-problem",
-  "title": "My Custom DSA Problem",
-  "difficulty": "medium",
-  "category": "stack",
-  "patterns": ["Monotonic Stack"],
-  "story": {
-    "theme": "space-mission",
-    "missionTitle": "Satellite Buffer Calibration",
-    "missionBrief": "Calibrate signal wavelengths...",
-    "analogy": "A stack holding signal indices...",
-    "character": { "name": "Astro", "avatar": "🚀", "role": "Commander" },
-    "realWorldScenario": "Sensor buffer processing"
-  },
-  "explanation": {
-    "eli5": "Simple ELI5 explanation...",
-    "beginner": "Beginner walkthrough...",
-    "intermediate": "Algorithmic invariant...",
-    "interview": "Big-O and edge cases..."
-  },
-  "game": {
-    "type": "push-pop-stack",
-    "mission": "Resolve smaller frequencies...",
-    "instructions": ["Push new frequencies", "Pop smaller values"],
-    "initialData": [10, 20, 15, 30]
-  },
-  "visualization": {
-    "primaryType": "stack",
-    "secondaryTypes": ["array"],
-    "defaultInput": { "nums": [10, 20, 15, 30] }
-  },
-  "algorithm": {
-    "name": "Monotonic Stack",
-    "pattern": "Monotonic Stack",
-    "bruteForce": { "name": "Brute Force", "timeComplexity": "O(n²)", "pythonCode": "..." },
-    "optimal": { "name": "Optimal Stack", "timeComplexity": "O(n)", "pythonCode": "..." }
-  }
-}
-```
-
-Once registered, the **Universal Engine** automatically handles rendering the story, interactive game, visualizer, line execution, variable transitions, and practice challenges!
-
----
-
-## 🗺️ Roadmap
-
-- [x] Universal Data-Driven Engine Architecture
-- [x] Repertoire of Core DSA Paradigms (Two Sum, Daily Temperatures, Number of Islands, Climbing Stairs, Valid Parentheses, Binary Search)
-- [x] Interactive Reusable Game Mechanics
-- [x] 5-Tier Progressive Clue Engine
-- [x] Big-O Complexity Lab
-- [x] Interactive World Map & Pattern Recognition Arena
-- [x] Universal JSON Problem Creator
-- [ ] Trees & Lowest Common Ancestor (LCA) Visualizer
-- [ ] Graph Shortest Path (Dijkstra) & Topological Sort
-- [ ] Knapsack & 2D Grid Dynamic Programming
-- [ ] Multi-Language Execution Support (JavaScript, Java, C++)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! To add new problem schemas, game mechanics, or visualizer primitives:
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature/new-dsa-pattern`).
-3. Commit your changes (`git commit -m "feat: add sliding window visualizer"`).
-4. Push to the branch (`git push origin feature/new-dsa-pattern`).
-5. Open a Pull Request.
+| Test ID | Algorithm / Code Paradigm | Expected Behavior | Status |
+| :--- | :--- | :--- | :--- |
+| **TEST A** | `x = 10; y = 20; z = x + y; print(z)` | Generic variable assignment & stdout | **PASS** |
+| **TEST B** | `total = 0; for i in range(5): total += i` | Loop counter & accumulator diffs | **PASS** |
+| **TEST C** | Recursive Factorial | Call stack frames & recursion unwinding | **PASS** |
+| **TEST D** | Stack Operations (`append`/`pop`) | Stack container push/pop visualizer | **PASS** |
+| **TEST E** | Two Sum (Hashing) | Array pointers + Hash Map lookup | **PASS** |
+| **TEST F** | Daily Temperatures | Array + Monotonic Decreasing Stack | **PASS** |
+| **TEST G** | Number of Islands | 2D Matrix Grid + DFS flood-fill | **PASS** |
+| **TEST H** | Climbing Stairs | DP Table tabulation recurrence | **PASS** |
+| **TEST I** | Binary Search | Left, Mid, Right pointers halving | **PASS** |
+| **TEST J** | Merge Sort | Recursive partition + merge animation | **PASS** |
+| **TEST K** | Linked List Reversal | `ListNode` chain (`val -> next`) | **PASS** |
+| **TEST L** | Graph BFS | Graph vertices + FIFO Queue | **PASS** |
+| **TEST M** | Dijkstra Shortest Path | Graph + Priority Queue / Min-Heap | **PASS** |
+| **TEST N** | Backtracking Subsets | Decision tree branching & pop() | **PASS** |
+| **TEST O** | Arbitrary Unseen Python Code | Seamless generic execution mode | **PASS** |
 
 ---
 

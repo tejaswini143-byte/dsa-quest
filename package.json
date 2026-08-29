@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "publish": "powershell -ExecutionPolicy Bypass -File ./scripts/publish.ps1"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",

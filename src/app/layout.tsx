@@ -53,6 +53,9 @@ export default function RootLayout({
 
             {/* Navigation Links */}
             <nav className="hidden md:flex items-center gap-6 text-xs font-mono font-semibold text-gray-300">
+              <Link href="/playground" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+                <span>🐍</span> Python Playground
+              </Link>
               <Link href="/map" className="hover:text-indigo-400 transition-colors flex items-center gap-1">
                 <span>🗺️</span> World Map
               </Link>
