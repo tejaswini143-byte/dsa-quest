@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
+import { normalizeExecutionTrace } from '@/lib/execution/normalizeTrace';
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,7 +10,11 @@ export async function POST(req: NextRequest) {
 
     if (!code || typeof code !== 'string') {
       return NextResponse.json(
-        { success: false, error: 'No Python code provided', steps: [] },
+        normalizeExecutionTrace({
+          success: false,
+          error: 'No Python code provided',
+          steps: [],
+        }),
         { status: 400 }
       );
     }
@@ -46,30 +51,34 @@ export async function POST(req: NextRequest) {
     await exitPromise;
 
     if (!stdoutData.trim()) {
-      return NextResponse.json({
-        success: false,
-        error: stderrData || 'Python execution produced no trace output',
-        steps: [],
-        detectedStructures: ['generic'],
-        metrics: { operationsCount: 0, memoryPeak: 0 },
-      });
+      return NextResponse.json(
+        normalizeExecutionTrace({
+          success: false,
+          error: stderrData || 'Python execution produced no trace output',
+          steps: [],
+        })
+      );
     }
 
     try {
       const traceResult = JSON.parse(stdoutData);
-      return NextResponse.json(traceResult);
+      return NextResponse.json(normalizeExecutionTrace(traceResult));
     } catch {
-      return NextResponse.json({
-        success: false,
-        error: `Failed to parse Python trace output: ${stdoutData.slice(0, 200)}`,
-        steps: [],
-        detectedStructures: ['generic'],
-        metrics: { operationsCount: 0, memoryPeak: 0 },
-      });
+      return NextResponse.json(
+        normalizeExecutionTrace({
+          success: false,
+          error: `Failed to parse Python trace output: ${stdoutData.slice(0, 200)}`,
+          steps: [],
+        })
+      );
     }
   } catch (err: any) {
     return NextResponse.json(
-      { success: false, error: `Execution engine error: ${err.message}`, steps: [] },
+      normalizeExecutionTrace({
+        success: false,
+        error: `Execution engine error: ${err.message}`,
+        steps: [],
+      }),
       { status: 500 }
     );
   }

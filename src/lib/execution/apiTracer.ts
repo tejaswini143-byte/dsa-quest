@@ -1,5 +1,6 @@
 import { ExecutionTrace } from '@/types/execution';
 import { generateClientTrace } from './clientTracer';
+import { normalizeExecutionTrace } from './normalizeTrace';
 
 export async function executeAlgorithmTrace(
   problemIdOrCode: string,
@@ -24,7 +25,7 @@ export async function executeAlgorithmTrace(
       if (res.ok) {
         const trace = await res.json();
         if (trace && trace.steps && trace.steps.length > 0) {
-          return trace;
+          return normalizeExecutionTrace(trace);
         }
       }
     } catch {
@@ -45,7 +46,7 @@ export async function executeAlgorithmTrace(
       if (res.ok) {
         const trace = await res.json();
         if (trace && trace.steps && trace.steps.length > 0) {
-          return trace;
+          return normalizeExecutionTrace(trace);
         }
       }
     } catch {
@@ -54,5 +55,6 @@ export async function executeAlgorithmTrace(
   }
 
   // 3. Deterministic client-side generator for built-in seed problems & offline simulation
-  return generateClientTrace(codeToExecute || problemIdOrCode, variant, customInput);
+  const clientRes = generateClientTrace(codeToExecute || problemIdOrCode, variant, customInput);
+  return normalizeExecutionTrace(clientRes);
 }

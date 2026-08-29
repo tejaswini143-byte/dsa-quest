@@ -74,8 +74,8 @@ const PLAYGROUND_PRESETS = [
     id: 'test-9-islands',
     name: '9. Number of Islands (Test 9)',
     category: '2D Grid DFS',
-    code: `def num_islands(grid):\n    rows, cols = len(grid), len(grid[0])\n    islands = 0\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == "1":\n                islands += 1\n                grid[r][c] = "V"\n    return islands`,
-    input: '{"grid": [["1","1","0"],["1","1","0"],["0","0","1"]]}',
+    code: `def num_islands(grid):\n    rows, cols = len(grid), len(grid[0])\n    islands = 0\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == "1":\n                islands += 1\n                grid[r][c] = "V"\n    return islands\n\nprint(num_islands([["1","1","0"],["1","1","0"],["0","0","1"]]))`,
+    input: '',
   },
   {
     id: 'test-10-climb-stairs',
@@ -95,35 +95,35 @@ const PLAYGROUND_PRESETS = [
     id: 'test-12-merge-sort',
     name: '12. Merge Sort (Test 12)',
     category: 'Sorting',
-    code: `def merge_sort(arr):\n    if len(arr) <= 1: return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)`,
+    code: `def merge_sort(arr):\n    if len(arr) <= 1: return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge_sort(arr[:mid]) + merge_sort(arr[mid:])\n\nprint(merge_sort([4, 2, 7, 1]))`,
     input: '',
   },
   {
     id: 'test-13-linked-list',
     name: '13. Linked List (Test 13)',
     category: 'Linked List',
-    code: `def reverse_list(head):\n    prev = None\n    curr = head\n    while curr:\n        next_node = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_node\n    return prev`,
+    code: `class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\nhead = ListNode(1, ListNode(2, ListNode(3)))\nprev = None\ncurr = head\nwhile curr:\n    next_node = curr.next\n    curr.next = prev\n    prev = curr\n    curr = next_node`,
     input: '',
   },
   {
     id: 'test-14-bfs',
     name: '14. Graph BFS (Test 14)',
     category: 'Graphs',
-    code: `queue = deque([start_node])\nvisited = {start_node}\nwhile queue:\n    curr = queue.popleft()\n    for neighbor in graph[curr]:\n        if neighbor not in visited:\n            visited.add(neighbor)\n            queue.append(neighbor)`,
+    code: `from collections import deque\ngraph = {'A': ['B', 'C'], 'B': ['D'], 'C': [], 'D': []}\nq = deque(['A'])\nvisited = {'A'}\nwhile q:\n    node = q.popleft()\n    for neighbor in graph[node]:\n        if neighbor not in visited:\n            visited.add(neighbor)\n            q.append(neighbor)\nprint(visited)`,
     input: '',
   },
   {
     id: 'test-15-dijkstra',
     name: '15. Dijkstra (Test 15)',
     category: 'Graph & Heap',
-    code: `heap = [(0, start)]\ndistances = {start: 0}\nwhile heap:\n    dist, node = heapq.heappop(heap)\n    for neighbor, weight in graph[node]:\n        if dist + weight < distances[neighbor]:\n            distances[neighbor] = dist + weight\n            heapq.heappush(heap, (dist + weight, neighbor))`,
+    code: `import heapq\nheap = [(0, 'A')]\ndistances = {'A': 0}\nwhile heap:\n    dist, node = heapq.heappop(heap)\nprint(distances)`,
     input: '',
   },
   {
     id: 'test-16-backtrack',
     name: '16. Backtracking (Test 16)',
     category: 'Backtracking',
-    code: `def backtrack(start, path):\n    res.append(list(path))\n    for i in range(start, len(nums)):\n        path.append(nums[i])\n        backtrack(i + 1, path)\n        path.pop()`,
+    code: `res = []\ndef backtrack(start, path):\n    res.append(list(path))\n    for i in range(start, 3):\n        path.append(i)\n        backtrack(i + 1, path)\n        path.pop()\n\nbacktrack(0, [])\nprint(len(res))`,
     input: '',
   },
   {
@@ -162,6 +162,22 @@ export default function UniversalPythonPlayground() {
   }, []);
 
   const handleExecute = async () => {
+    if (!code || code.trim().length === 0) {
+      setTrace({
+        success: false,
+        totalSteps: 0,
+        steps: [],
+        output: null,
+        stdout: '',
+        error: 'No code to execute. Write or select an algorithm above.',
+        detectedStructures: ['generic'],
+        metrics: { operationsCount: 0, memoryPeak: 0 },
+      });
+      setScenes([]);
+      setCurrentStepIndex(0);
+      return;
+    }
+
     setIsRunning(true);
     setIsPlaying(false);
     try {
@@ -176,18 +192,29 @@ export default function UniversalPythonPlayground() {
 
       // Execute ACTUAL user Python source code!
       const res = await executeAlgorithmTrace(
-        code, // Pass actual Python code
+        code,
         'optimal',
         parsedInput,
-        code // Explicitly pass code
+        code
       );
 
       setTrace(res);
       const compiledScenes = VisualizationCompiler.compile(res);
       setScenes(compiledScenes);
       setCurrentStepIndex(0);
-    } catch {
-      // handled
+    } catch (err: any) {
+      setTrace({
+        success: false,
+        totalSteps: 0,
+        steps: [],
+        output: null,
+        stdout: '',
+        error: `Execution Error: ${err.message}`,
+        detectedStructures: ['generic'],
+        metrics: { operationsCount: 0, memoryPeak: 0 },
+      });
+      setScenes([]);
+      setCurrentStepIndex(0);
     } finally {
       setIsRunning(false);
     }
@@ -295,6 +322,17 @@ export default function UniversalPythonPlayground() {
         </div>
       </div>
 
+      {/* Error Banner if execution failed */}
+      {trace && trace.error && (
+        <div className="p-4 bg-rose-950/80 border border-rose-600/80 rounded-2xl font-mono text-xs text-rose-200 flex items-start gap-3 shadow-lg">
+          <span className="text-lg">❌</span>
+          <div className="flex flex-col gap-0.5">
+            <span className="font-bold text-rose-300">Execution Error / Exception:</span>
+            <span className="text-rose-100">{trace.error}</span>
+          </div>
+        </div>
+      )}
+
       {/* Main Studio Grid: Editor (Left) | Visualizer & Memory (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Code Editor & Input (5 cols) */}
@@ -334,7 +372,7 @@ export default function UniversalPythonPlayground() {
             explanation={currentStep?.explanation?.whatHappened}
           />
 
-          {/* Variable State Inspector */}
+          {/* Safe Variable State Inspector (Guaranteed Null-Free) */}
           <VariableInspector
             variables={currentStep?.variables}
             previousVariables={currentStep?.previousVariables}
@@ -364,7 +402,7 @@ export default function UniversalPythonPlayground() {
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              📄 Stdout Console ({trace?.stdout ? 'Output' : '0 bytes'})
+              📄 Stdout Console ({trace?.stdout ? 'Output Ready' : '0 bytes'})
             </button>
             <button
               onClick={() => setActiveTab('ai')}

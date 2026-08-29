@@ -282,7 +282,7 @@ class RealPythonTracer:
                 "line": lineno,
                 "codeLine": line_str,
                 "variables": filtered_vars,
-                "previousVariables": copy.deepcopy(self.previous_vars) if self.previous_vars else None,
+                "previousVariables": copy.deepcopy(self.previous_vars),
                 "changedVariables": changed_names,
                 "memory": memory,
                 "events": semantic_events,
